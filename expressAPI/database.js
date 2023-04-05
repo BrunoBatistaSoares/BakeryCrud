@@ -6,7 +6,7 @@ const pool = new Pool({
     password: process.env.password,
     host: process.env.host,
     port: process.env.port,
-    database: bakery_crud
+    database: 'bakery_crud'
 })
 
 module.exports = pool;
