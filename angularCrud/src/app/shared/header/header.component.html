@@ -8,11 +8,15 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link fs-4 px-4 text-white">Padaria Sonhomeu</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Pães</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Laticíneos</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Confeitaria</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Mercado</a></li>
+                <li><a href="#" (click)="categoryClickHandler('')" class="nav-link fs-4 px-4 text-white">Padaria
+                        Sonhomeu</a></li>
+                <li><a href="#" (click)="categoryClickHandler('pães')" class=" nav-link px-2 text-white">Pães</a></li>
+                <li><a href="#" (click)="categoryClickHandler('laticíneos')" class=" nav-link px-2
+                        text-white">Laticíneos</a></li>
+                <li><a href="#" (click)="categoryClickHandler('confeitaria')" class=" nav-link px-2
+                        text-white">Confeitaria</a></li>
+                <li><a href="#" (click)="categoryClickHandler('mercado')" class=" nav-link px-2 text-white">Mercado</a>
+                </li>
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
