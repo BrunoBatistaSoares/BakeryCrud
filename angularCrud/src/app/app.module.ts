@@ -11,6 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { ListedProductComponent } from './shared/listed-product/listed-product.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginModalComponent } from './shared/login-modal/login-modal.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    ListedProductComponent
+    ListedProductComponent,
+    LoginModalComponent
   ],
   imports: [
     BrowserModule,

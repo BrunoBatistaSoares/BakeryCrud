@@ -1,0 +1,21 @@
+.overlay {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    left: 0;
+    top: 0;
+}
+
+.modal-interface {
+    width: 40vw;
+    height: 40vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3%;
+}

@@ -29,3 +29,5 @@ INSERT INTO products (product_id,product_name,price,description) VALUES (gen_ran
 INSERT INTO product_categories(product_id,categorie_id) VALUES ('40c4e2b4-c890-44ae-89b9-f384f9191279','2d94ff0f-0869-4d58-887e-9a15331f277e');
 
 INSERT INTO categories (categorie_id, categorie_name) VALUES (gen_random_uuid(), 'laticíneos');
+INSERT INTO products (product_id,product_name,price,description) VALUES (gen_random_uuid(), 'queijo prato', 2, 'queijo tipo lanche com aquele azedinho no ponto');
+INSERT INTO product_categories(product_id,categorie_id) VALUES ('346ee468-6422-4478-8c42-9d74662fb5b5','12d99797-3f8b-4145-a374-c3bcdb2b8b9c');

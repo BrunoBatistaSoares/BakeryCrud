@@ -7,9 +7,10 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 })
 export class CurrentCategoryService {
 
-  private currentCategory$ = new BehaviorSubject<string>('');//Observable<string> = of('');
+  private currentCategory$ = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) { }
+
   getCategory(): Observable<string> {
     return this.currentCategory$;
   }
