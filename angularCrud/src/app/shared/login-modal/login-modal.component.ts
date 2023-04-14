@@ -16,6 +16,10 @@ export class LoginModalComponent {
     this.showModal$ = showLoginModalService.getShowModal();
   }
 
+  closeModal() {
+    this.showLoginModalService.setShowModal('')
+  }
+
 
 
 }

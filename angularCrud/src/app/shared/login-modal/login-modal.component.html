@@ -1,6 +1,6 @@
 <div *ngIf="(showModal$ | async) as showModal">
     <div *ngIf="showModal != ''">
-        <div [ngSwitch]="showModal" class="overlay">
+        <div (click)="closeModal()" [ngSwitch]="showModal" class="overlay">
             <div *ngSwitchCase="'login'" class="modal-interface"> works!</div>
         </div>
     </div>
