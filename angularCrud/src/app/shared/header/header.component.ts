@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CurrentCategoryService } from '../services/current-category/current-category.service';
-import { ShowLoginModalService } from '../services/show-login-modal/show-login-modal.service';
+import { ShowModalService } from '../services/show-modal/show-modal.service';
 
 @Component({
   selector: 'app-header',
@@ -8,13 +8,13 @@ import { ShowLoginModalService } from '../services/show-login-modal/show-login-m
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private currentCategoryService: CurrentCategoryService, private showLoginModalService: ShowLoginModalService) { }
+  constructor(private currentCategoryService: CurrentCategoryService, private showModalService: ShowModalService) { }
 
   categoryClickHandler(category: string) {
     this.currentCategoryService.setCurrentCategory(category)
   }
 
   showModal(modal: string) {
-    this.showLoginModalService.setShowModal(modal);
+    this.showModalService.setShowModal(modal);
   }
 }

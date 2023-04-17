@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ShowLoginModalService {
+export class ShowModalService {
   showModal$ = new BehaviorSubject<string>('');
   constructor() { }
 
