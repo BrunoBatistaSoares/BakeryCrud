@@ -1,7 +1,7 @@
 <div *ngIf="(showModal$ | async) as showModal">
     <div *ngIf="showModal != ''">
         <div (click)="closeModal()" [ngSwitch]="showModal" class="overlay">
-            <div style="--bs-bg-opacity: .15;" *ngSwitchCase="'sign-up'"
+            <div style="--bs-bg-opacity: 0;" *ngSwitchCase="'sign-up'"
                 class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1"
                 role="dialog" id="modalSignin">
                 <div class="modal-dialog" role="document">
@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngSwitchCase="'login'" class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5"
+            <div style="--bs-bg-opacity: 0;" *ngSwitchCase="'login'" class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5"
                 tabindex="-1" role="dialog" id="modalSignin">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content rounded-4 shadow">
