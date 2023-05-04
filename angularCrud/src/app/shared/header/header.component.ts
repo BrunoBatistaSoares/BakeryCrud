@@ -8,13 +8,12 @@ import { ShowModalService } from '../services/show-modal/show-modal.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private currentCategoryService: CurrentCategoryService, private showModalService: ShowModalService) { }
 
-  categoryClickHandler(category: string) {
-    this.currentCategoryService.setCurrentCategory(category)
-  }
+  constructor(private showModalService: ShowModalService) { }
 
   showModal(modal: string) {
-    this.showModalService.setShowModal(modal);
+    this.showModalService.setModal(modal);
   }
+
+  reload() { window.location.reload(); }
 }

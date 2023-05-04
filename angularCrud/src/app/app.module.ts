@@ -12,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ListedProductComponent } from './shared/listed-product/listed-product.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './shared/modal/modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { ModalComponent } from './shared/modal/modal.component';
     HeaderComponent,
     FooterComponent,
     ListedProductComponent,
-    ModalComponent
+    ModalComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,9 @@ import { ModalComponent } from './shared/modal/modal.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

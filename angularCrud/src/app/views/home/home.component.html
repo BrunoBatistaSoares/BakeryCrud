@@ -1,13 +1,39 @@
-<div class="album py-5 bg-body-tertiary">
+<header class="p-3 text-bg-secondary">
     <div class="container">
-        <div *ngIf="(products$ | async) as products;">
-            <div *ngIf="products.length > 0; else nenhumResultado"
-                class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <app-listed-product *ngFor="let product of products" [product]="product"></app-listed-product>
-            </div>
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="#" (click)="categoryClickHandler('pães')" class=" nav-link px-2 text-white">Pães</a></li>
+                <li><a href="#" (click)="categoryClickHandler('laticíneos')" class=" nav-link px-2
+                        text-white">Laticíneos</a></li>
+                <li><a href="#" (click)="categoryClickHandler('confeitaria')" class=" nav-link px-2
+                        text-white">Confeitaria</a></li>
+                <li><a href="#" (click)="categoryClickHandler('mercado')" class=" nav-link px-2 text-white">Mercado</a>
+                </li>
+                <li><a href="#" (click)="categoryClickHandler('')" class=" nav-link px-2 text-white">Tudo</a>
+                </li>
+            </ul>
+            <form class="col-12 col-lg-auto mb-lg-0 me-lg-2" role="search">
+                <input type="search" class="form-control form-control-dark text-bg-body " placeholder="Search..."
+                    aria-label="Search">
+            </form>
         </div>
-        <ng-template #nenhumResultado>
-            Nenhum Resultado encontrado
-        </ng-template>
     </div>
-</div>
+</header>
+
+<body>
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <ng-container *ngIf="(products$ | async) as products;">
+                <div *ngIf="products.length > 0; else nenhumResultado"
+                    class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <ng-container *ngFor="let product of products">
+                        <app-listed-product [product]="product"></app-listed-product>
+                    </ng-container>
+                </div>
+            </ng-container>
+            <ng-template #nenhumResultado>
+                Nenhum Resultado encontrado
+            </ng-template>
+        </div>
+    </div>
+</body>

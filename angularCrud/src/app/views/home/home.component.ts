@@ -35,4 +35,9 @@ export class HomeComponent {
     this.currentCategoryService.getCategory().subscribe(this.categoryObserver);
   }
 
+  categoryClickHandler(category: string) {
+    this.currentCategoryService.setCurrentCategory(category)
+  }
+
 }
+

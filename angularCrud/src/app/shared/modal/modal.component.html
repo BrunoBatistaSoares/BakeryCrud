@@ -1,69 +1,148 @@
-<div *ngIf="(showModal$ | async) as showModal">
-    <div *ngIf="showModal != ''">
-        <div (click)="closeModal()" [ngSwitch]="showModal" class="overlay">
-            <div style="--bs-bg-opacity: 0;" *ngSwitchCase="'sign-up'"
-                class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1"
-                role="dialog" id="modalSignin">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content rounded-4 shadow">
-                        <div class="modal-header p-5 pb-4 border-bottom-0">
-                            <h1 class="fw-bold mb-0 fs-2">Sign up for free</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
+<div class="container">
+    <ng-container *ngIf="showModal$.value && !isLoading$.value; else modalLoading">
+        <div *ngIf="(modal$ | async) as modal">
+            <ngContainer [ngSwitch]="modal">
+                <div style="--bs-bg-opacity: 0.5" *ngSwitchCase="'sign-up'"
+                    class="modal d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content rounded-4 shadow">
+                            <div class="modal-header p-5 pb-4 border-bottom-0">
+                                <h1 class="fw-bold mb-0 fs-2">Sign up for free</h1>
+                                <button (click)="closeModal()" type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
 
-                        <div class="modal-body p-5 pt-0">
-                            <form class="">
-                                <div class="form-floating mb-3">
-                                    <input type="email" class="form-control rounded-3" id="floatingInput"
-                                        placeholder="name@example.com">
-                                    <label for="floatingInput">Email address</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="password" class="form-control rounded-3" id="floatingPassword"
-                                        placeholder="Password">
-                                    <label for="floatingPassword">Password</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="password" class="form-control rounded-3" id="floatingPassword"
-                                        placeholder="Password">
-                                    <label for="floatingPassword">Confirm Password</label>
-                                </div>
-                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Sign
-                                    up</button>
-                                <small class="text-body-secondary">By clicking Sign up, you agree to the terms of
-                                    use.</small>
-                            </form>
+                            <div class="modal-body p-5 pt-0">
+                                <form class="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+                                    <div class="form-floating mb-3">
+                                        <input formControlName="email" required type="email"
+                                            class="form-control rounded-3" id="email" placeholder="name@example.com">
+                                        <label for="email">Email address</label>
+                                        <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                                            <div *ngIf=" email.errors?.['required']" class="alert alert-dark mt-2">Por
+                                                favor
+                                                digite
+                                                seu endereço de email.</div>
+                                            <div *ngIf="email.errors?.['email']" class="alert alert-dark mt-2">Email
+                                                inválido
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input formControlName="password" type="password" class="form-control rounded-3"
+                                            id="password" placeholder="Password">
+                                        <label for="password">Password</label>
+                                        <div *ngIf="password.touched && !password.valid">
+                                            <div *ngIf="password.errors?.['required']" class="alert alert-dark mt-2">Por
+                                                favor digite
+                                                uma senha para sua conta.</div>
+                                            <div *ngIf="password.errors?.['pattern']" class="alert alert-dark mt-2">Sua
+                                                senha precisa
+                                                ter pelo menos 8 caracteres entre eles um maiúsculo, um minusculo e um
+                                                número.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input formControlName="confirmPassword" type="password"
+                                            class="form-control rounded-3" id="confirmPassword" placeholder="Password">
+                                        <label for="confirmPassword">Confirm your
+                                            password</label>
+                                        <div *ngIf="confirmPassword.touched && !confirmPassword.valid">
+                                            <div *ngIf="confirmPassword.errors?.['required']"
+                                                class="alert alert-dark mt-2">
+                                                Por favor
+                                                confirme a senha da sua conta.</div>
+                                            <div *ngIf="signUpForm.errors?.['doesNotMatch']"
+                                                class="alert alert-dark mt-2">A
+                                                senha informada
+                                                está diferente.</div>
+                                        </div>
+                                    </div>
+                                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Sign
+                                        up</button>
+
+                                    <small class="text-body-secondary">By clicking Sign up, you agree to the terms of
+                                        use.</small>
+                                </form>
+                            </div>
+                            <div class="modal-body p-5 pt-0">
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div style="--bs-bg-opacity: 0;" *ngSwitchCase="'login'" class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5"
-                tabindex="-1" role="dialog" id="modalSignin">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content rounded-4 shadow">
-                        <div class="modal-header p-5 pb-4 border-bottom-0">
-                            <h1 class="fw-bold mb-0 fs-2">Login with your account</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
+                <div style="--bs-bg-opacity: 0.5;" *ngSwitchCase="'login'"
+                    class="modal modal-sheet d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog"
+                    id="modalSignin">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content rounded-4 shadow">
+                            <div class="modal-header p-5 pb-4 border-bottom-0">
+                                <h1 class="fw-bold mb-0 fs-2">Login with your account</h1>
+                                <button (click)="closeModal()" type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
 
-                        <div class="modal-body p-5 pt-0">
-                            <form class="">
-                                <div class="form-floating mb-3">
-                                    <input type="email" class="form-control rounded-3" id="floatingInput"
-                                        placeholder="name@example.com">
-                                    <label for="floatingInput">Email address</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="password" class="form-control rounded-3" id="floatingPassword"
-                                        placeholder="Password">
-                                    <label for="floatingPassword">Password</label>
-                                </div>
-                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Login</button>
-                            </form>
+                            <div class="modal-body p-5 pt-0">
+                                <form>
+                                    <div class="form-floating mb-3">
+                                        <input type="email" class="form-control rounded-3" id="floatingInput"
+                                            placeholder="name@example.com">
+                                        <label for="floatingInput">Email address</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="password" class="form-control rounded-3" id="floatingPassword"
+                                            placeholder="Password">
+                                        <label for="floatingPassword">Password</label>
+                                    </div>
+                                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning"
+                                        type="submit">Login</button>
+                                </form>
+                            </div>
                         </div>
+                    </div>
+                </div>
+                <div style="--bs-bg-opacity: 0.5;" *ngSwitchCase="'success'"
+                    class="modal modal-sheet d-block bg-body-secondary vertical-align: py-md-5" tabindex="-1"
+                    role="dialog" id="modalSignin">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content rounded-4 shadow">
+                            <div class="modal-header p-5 ">
+                                <h1 class="fw-bold fs-2 mb-0">Sucesso!</h1>
+                                <button (click)="closeModal()" type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="--bs-bg-opacity: 0.5;" *ngSwitchCase="'failed'"
+                    class="modal modal-sheet d-block bg-body-secondary vertical-align: py-md-5" tabindex="-1"
+                    role="dialog" id="modalSignin">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content rounded-4 shadow">
+                            <div class="modal-header p-5 ">
+                                <h1 class="fw-bold fs-2 mb-0">Algum erro inesperado aconteceu.</h1>
+                                <button (click)="closeModal()" type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ngContainer>
+        </div>
+    </ng-container>
+</div>
+<ng-template #modalLoading>
+    <div *ngIf="isLoading$.value">
+        <div style="--bs-bg-opacity: 0.5;" class=" modal modal-sheet d-block bg-body-secondary vertical-align: py-md-5"
+            tabindex="-1" role="dialog" id="modalSignin">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-body p-5">
+                        <app-spinner></app-spinner>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</ng-template>
