@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ShowModalService } from '../services/show-modal/show-modal.service';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ModalEnum } from '../resources/modal-enum';
 
 
 @Component({
@@ -12,8 +13,8 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 export class ModalComponent {
   //observables 
   modal$ = this.showModalService.getModal();
-  showModal$ = this.showModalService.getShowModal();
   isLoading$ = this.showModalService.getIsLoading();
+  modalEnum: typeof ModalEnum = ModalEnum;
 
   signUpForm: FormGroup;
 
@@ -29,7 +30,7 @@ export class ModalComponent {
   }
 
   closeModal() {
-    this.showModalService.setShowModal(false);
+    this.showModalService.setModal(ModalEnum.Closed);
     this.signUpForm.reset();
   }
 
@@ -52,14 +53,14 @@ export class ModalComponent {
 
     } catch (error) {
       this.showModalService.setIsLoading(false);
-      this.showModalService.setModal('failed');
+      this.showModalService.setModal(ModalEnum.Failed);
       return false;
     }
 
     this.showModalService.setIsLoading(false);
     this.log("finished loading")
 
-    this.showModalService.setModal('success');
+    this.showModalService.setModal(ModalEnum.Success);
 
     return true
   }

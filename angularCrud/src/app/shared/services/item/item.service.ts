@@ -14,12 +14,10 @@ export class ItemService {
 
 
   getAllItems(): Observable<Product[]> {
-    console.log('loading should poppup')
     return this.httpClient.get<Product[]>(`${this.baseURL}/${this.getAllIemsEndpoint}`);
   }
 
   getItemsByCategory(category: string): Observable<Product[]> {
-    console.log('loading should poppup')
     return this.httpClient.get<Product[]>(`${this.baseURL}/${this.getAllIemsEndpoint}/${category}`);
   }
 }
