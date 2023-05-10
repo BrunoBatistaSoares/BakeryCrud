@@ -79,4 +79,5 @@ export class ModalComponent {
   get email() { return this.signUpForm.get('email')!; }
   get password() { return this.signUpForm.get('password')!; }
   get confirmPassword() { return this.signUpForm.get('confirmPassword')!; }
+
 }

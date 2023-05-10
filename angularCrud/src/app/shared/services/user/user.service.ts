@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Product } from '../../resources/product';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { User } from '../../resources/user';
 
 @Injectable({
@@ -10,19 +9,27 @@ import { User } from '../../resources/user';
 export class UserService {
 
   private baseURL = 'http://localhost:4000';
-  private usersEndpoint = 'user'
-  constructor(private httpClient: HttpClient) { }
+  private loginEndpoint = 'user/auth'
+  private currentUser$: BehaviorSubject<User>;
 
-  getAllUsers(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(`${this.baseURL}/${this.usersEndpoint}`);
+  constructor(private httpClient: HttpClient) {
+    this.currentUser$ = new BehaviorSubject(JSON.parse(localStorage.getItem('currenUser')!))
   }
 
-  getUsersByEmail(email: string): Observable<User> {
-    return this.httpClient.get<User>(`${this.baseURL}/${this.usersEndpoint}/${email}`);
+  login(emailAuth: string, passwordAuth: string) {
+    const user = new User;
+    user.email = emailAuth;
+    user.password = passwordAuth;
+    return this.httpClient.post<User>(`${this.baseURL}/${this.loginEndpoint}`, user).pipe(map(user => {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      this.currentUser$.next(user);
+      console.log(user);
+
+      return user;
+    }));
   }
 
-  newUser(body: Object) {
-
-    return this.httpClient.post(`${this.baseURL}/${this.usersEndpoint}`, JSON.stringify(body));
-  }
+  // login() {
+  //   return this.httpClient.post()
+  // }
 }

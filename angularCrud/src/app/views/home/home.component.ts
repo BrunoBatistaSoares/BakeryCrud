@@ -11,7 +11,8 @@ import { ItemService } from 'src/app/shared/services/item/item.service';
 })
 export class HomeComponent {
 
-  products$: Observable<Product[]> = new Observable<Product[]>;
+  products$: Observable<Product[]>;
+
   private categoryObserver = {
     next: (category: string) => {
       if (category === '') {
@@ -25,9 +26,8 @@ export class HomeComponent {
   };
 
 
-  constructor(private itemService: ItemService, private currentCategoryService: CurrentCategoryService) { }
-
-  ngOnInit() {
+  constructor(private itemService: ItemService, private currentCategoryService: CurrentCategoryService) {
+    this.products$ = itemService.getAllItems();
     this.listProducts();
   }
 
