@@ -31,3 +31,16 @@ INSERT INTO product_categories(product_id,categorie_id) VALUES ('40c4e2b4-c890-4
 INSERT INTO categories (categorie_id, categorie_name) VALUES (gen_random_uuid(), 'laticíneos');
 INSERT INTO products (product_id,product_name,price,description) VALUES (gen_random_uuid(), 'queijo prato', 2, 'queijo tipo lanche com aquele azedinho no ponto');
 INSERT INTO product_categories(product_id,categorie_id) VALUES ('346ee468-6422-4478-8c42-9d74662fb5b5','12d99797-3f8b-4145-a374-c3bcdb2b8b9c');
+
+INSERT INTO categories (categorie_id, categorie_name) VALUES (gen_random_uuid(), 'confeitaria');
+INSERT INTO products (product_id,product_name,price,description) VALUES (gen_random_uuid(), 'torta de chocolate', 4, 'Deliciosa torta de chocolate, especialidade da casa');
+INSERT INTO product_categories(product_id,categorie_id) VALUES ('74934a0d-6ad7-4e5f-b282-093c46f14b12','fcbac5ce-0ca9-4a8f-a280-a3e3d6ec0ac1');
+
+CREATE TABLE users (
+    user_id VARCHAR(255) PRIMARY KEY,
+    user_name VARCHAR(255) NOT NULL,
+    user_email VARCHAR(255) NOT NULL UNIQUE,
+    user_password VARCHAR(255) NOT NULL
+);
+
+//ALTER TABLE users ADD CONSTRAINT email_is_unique UNIQUE user_email;

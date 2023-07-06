@@ -14,7 +14,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './shared/modal/modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
-import { ApiRequestInterceptor } from './shared/interceptors/api-request.interceptor';
+import { LoadingInterceptor } from './shared/interceptors/loading-interceptor/loading-interceptor';
+import { AlertComponent } from './shared/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ApiRequestInterceptor } from './shared/interceptors/api-request.interce
     FooterComponent,
     ListedProductComponent,
     ModalComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,7 @@ import { ApiRequestInterceptor } from './shared/interceptors/api-request.interce
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
-    useClass: ApiRequestInterceptor,
+    useClass: LoadingInterceptor,
     multi: true
   }],
   bootstrap: [AppComponent]

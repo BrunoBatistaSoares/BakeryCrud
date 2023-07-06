@@ -8,6 +8,12 @@ import { Product } from '../resources/product';
 })
 export class ListedProductComponent {
   @Input() product!: Product;
+
+  alert(message: string) {
+    console.log(message);
+  }
 }
+
+
 
 

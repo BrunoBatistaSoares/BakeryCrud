@@ -3,6 +3,7 @@ import { CurrentCategoryService } from '../services/current-category/current-cat
 import { ShowModalService } from '../services/show-modal/show-modal.service';
 import { ModalEnum } from '../resources/modal-enum';
 import { UserService } from '../services/user/user.service';
+import { User } from '../resources/user';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,16 @@ import { UserService } from '../services/user/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private showModalService: ShowModalService, private userService: UserService) { }
+
+  user?: User | null;
+
+  constructor(private showModalService: ShowModalService, private userService: UserService) {
+    this.userService.getCurrentUser().subscribe(value => {
+      this.user = value;
+      console.log(value);
+    }
+    );
+  }
 
   login() {
     this.showModalService.setModal(ModalEnum.Login);
@@ -18,13 +28,12 @@ export class HeaderComponent {
 
   signUp() {
     this.showModalService.setModal(ModalEnum.SignUp);
-    console.log(ModalEnum.SignUp);
-
   }
 
-  reload() { window.location.reload(); }
-
-  test() {
-    this.userService.login('aa@aa.aa', 'asdASD123').subscribe();
+  reload() {
+    //using this to check current user status
+    console.log(this.user?.user_email);
+    //re vert to this before build
+    //window.location.reload(); 
   }
 }

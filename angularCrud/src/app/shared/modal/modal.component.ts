@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ShowModalService } from '../services/show-modal/show-modal.service';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ModalEnum } from '../resources/modal-enum';
+import { UserService } from '../services/user/user.service';
+import { first } from 'rxjs';
 
 
 @Component({
@@ -14,19 +16,26 @@ export class ModalComponent {
   //observables 
   modal$ = this.showModalService.getModal();
   isLoading$ = this.showModalService.getIsLoading();
+
   modalEnum: typeof ModalEnum = ModalEnum;
+  modalMessage = '';
 
   signUpForm: FormGroup;
+  loginForm: FormGroup;
 
-  constructor(private showModalService: ShowModalService, private formBuilder: FormBuilder) {
+  constructor(private showModalService: ShowModalService, private formBuilder: FormBuilder, private userService: UserService) {
     this.signUpForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")]],
       confirmPassword: ['', [Validators.required, Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")]]
     });
     this.signUpForm.setValidators(this.passwordConfirmedValidator());
-    console.log(this.modal$);
-    console.log(this.isLoading$);
+
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")]]
+    });
   }
 
   closeModal() {
@@ -34,35 +43,67 @@ export class ModalComponent {
     this.signUpForm.reset();
   }
 
+  previousModal(values: any) {
+
+  }
+
   //temp
   log(x: any) {
     console.log(x);
   }
 
-  //this is not supposed to be asyn, temp return type for testing only
-  async onSubmit(): Promise<Boolean> {
+  submitSignUp() {
 
-    if (this.signUpForm.valid) { console.log('submited', this.signUpForm.value); }
-    else { this.signUpForm.markAllAsTouched() }
-
-    //simulating server delay TODO interceptor to add delay handling for all http requests
-    this.log("started loading")
-    this.showModalService.setIsLoading(true);
-    try {
-      const success = await new Promise<boolean>(f => setTimeout(f, 5000));
-
-    } catch (error) {
-      this.showModalService.setIsLoading(false);
-      this.showModalService.setModal(ModalEnum.Failed);
-      return false;
+    if (this.signUpForm.valid) {
+      return this.userService.signUp(this.signUpForm.value).pipe(first()).subscribe({
+        next: () => {
+          this.showModalService.setModal(ModalEnum.Message)
+          this.modalMessage = 'Sucesso'
+        },
+        error: (err) => {
+          const formData = this.signUpForm.value;
+          this.modalMessage = err.error?.message || err.statusText;
+          this.modal$.pipe(first()).subscribe({
+            next: () => {
+              this.showModalService.setModal(ModalEnum.SignUp);
+              this.signUpForm.reset(formData);
+            }
+          });
+        }
+      });
+    }
+    else {
+      this.signUpForm.markAllAsTouched();
+      return null
     }
 
-    this.showModalService.setIsLoading(false);
-    this.log("finished loading")
+  }
 
-    this.showModalService.setModal(ModalEnum.Success);
-
-    return true
+  submitLogin() {
+    if (this.loginForm.valid) {
+      return this.userService.login(this.loginForm.value).pipe(first()).subscribe({
+        next: () => {
+          this.showModalService.setModal(ModalEnum.Message)
+          this.modalMessage = 'Sucesso'
+          //login
+          // jwt token
+        },
+        error: (err) => {
+          const formData = this.signUpForm.value;
+          this.modalMessage = err.error?.message || err.statusText;
+          this.modal$.pipe(first()).subscribe({
+            next: () => {
+              this.showModalService.setModal(ModalEnum.SignUp);
+              this.signUpForm.reset(formData);
+            }
+          });
+        }
+      })
+    }
+    else {
+      this.signUpForm.markAllAsTouched();
+      return null
+    }
   }
 
   passwordConfirmedValidator(): ValidatorFn {
@@ -76,8 +117,11 @@ export class ModalComponent {
     }
   }
 
-  get email() { return this.signUpForm.get('email')!; }
-  get password() { return this.signUpForm.get('password')!; }
-  get confirmPassword() { return this.signUpForm.get('confirmPassword')!; }
+  get name() { return this.signUpForm.get('name'); }
+  get email() { return this.signUpForm.get('email'); }
+  get password() { return this.signUpForm.get('password'); }
+  get confirmPassword() { return this.signUpForm.get('confirmPassword'); }
+  get loginEmail() { return this.loginForm.get('Email'); }
+  get loginPassword() { return this.loginForm.get('Password'); }
 
 }

@@ -6,10 +6,10 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable, finalize } from 'rxjs';
-import { ShowModalService } from '../services/show-modal/show-modal.service';
+import { ShowModalService } from '../../services/show-modal/show-modal.service';
 
 @Injectable()
-export class ApiRequestInterceptor implements HttpInterceptor {
+export class LoadingInterceptor implements HttpInterceptor {
 
   constructor(private showModalService: ShowModalService) { }
 

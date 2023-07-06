@@ -1,7 +1,6 @@
 export enum ModalEnum {
     Closed = 'Closed',
-    Success = 'Success',
-    Failed = 'Failed',
+    Message = 'Message',
     SignUp = 'SignUp',
     Login = 'Login'
 }

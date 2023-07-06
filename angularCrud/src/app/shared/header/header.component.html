@@ -3,15 +3,14 @@
         <div class="d-flex flex-wrap align-items-center">
 
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto  justify-content-center">
-                <li><a (click)="reload()" href="#" class="nav-link fs-4 px-2 text-white">Padaria
-                        Sonhomeu</a></li>
-            </ul>
+            <button class="nav-link fs-4 px-2 text-white col-12 col-lg-auto me-lg-auto  justify-content-center"
+                (click)="reload()">Padaria Sonhomeu
+            </button>
 
             <div class="text-center col-12 col-lg-auto mb-lg-0 me-lg-2">
-                <button (click)="test()" type="button" class="btn btn-outline-light me-2">test</button>
                 <button (click)="login()" type="button" class="btn btn-outline-light me-2">Login</button>
                 <button (click)="signUp()" type="button" class="btn btn-warning">Sign-up</button>
+                <div *ngIf="user">{{user.user_email}}</div>
             </div>
         </div>
     </div>

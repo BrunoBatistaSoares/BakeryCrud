@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ApiRequestInterceptor } from './api-request.interceptor';
+import { LoadingInterceptor } from './loading-interceptor';
 
 describe('ApiRequestInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      ApiRequestInterceptor
-      ]
+      LoadingInterceptor
+    ]
   }));
 
   it('should be created', () => {
-    const interceptor: ApiRequestInterceptor = TestBed.inject(ApiRequestInterceptor);
+    const interceptor: LoadingInterceptor = TestBed.inject(LoadingInterceptor);
     expect(interceptor).toBeTruthy();
   });
 });

@@ -1,7 +1,7 @@
 <header class="p-3 text-bg-secondary">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+    <div class="container ">
+        <div class="d-flex flex-wrap align-items-center justify-content-center">
+            <ul class="nav col-12 col-lg-auto me-2 mb-2 justify-content-center mb-md-0">
                 <li><a href="#" (click)="categoryClickHandler('pães')" class=" nav-link px-2 text-white">Pães</a></li>
                 <li><a href="#" (click)="categoryClickHandler('laticíneos')" class=" nav-link px-2
                         text-white">Laticíneos</a></li>
@@ -12,11 +12,15 @@
                 <li><a href="#" (click)="categoryClickHandler('')" class=" nav-link px-2 text-white">Tudo</a>
                 </li>
             </ul>
-            <form class="col-12 col-lg-auto mb-lg-0 me-lg-2" role="search">
-                <input type="search" class="form-control form-control-dark text-bg-body " placeholder="Search..."
-                    aria-label="Search">
+            <form class="col-6 col-lg-auto me-auto">
+                <input type="search" class="form-control text-bg-body" placeholder="Search..." aria-label="Search">
             </form>
+            <button class="btn btn-warning col-auto ms-2 col-auto p-1"><img class="img-fluid" style="max-height: 25px;"
+                    src="https://cdn.iconscout.com/icon/free/png-256/free-basket-340-452659.png">
+            </button>
+
         </div>
+
     </div>
 </header>
 
